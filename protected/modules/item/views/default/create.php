@@ -9,8 +9,22 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Pencarian Data', 'url'=>array('admin')),
+	array('label'=>'Tambah Detil', 'url'=>array('detailitems/create', 'id'=>$model->id),
+		'linkOptions'=>array('id'=>'adddetail')),
 );
+
+$jq=<<<EOH
+   $('#adddetail').click(function(event){
+     var mainform;
+     var hiddenvar;
+     mainform=$('#items-form');
+     $('#command').val('adddetail');
+     mainform.submit();
+     event.preventDefault();
+   });
+EOH;
+Yii::app()->clientScript->registerScript('myscript', $jq, CClientScript::POS_READY);
+
 ?>
 
 <h1>Item Penjualan</h1>

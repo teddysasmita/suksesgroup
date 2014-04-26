@@ -10,11 +10,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	/*array('label'=>'List Items', 'url'=>array('index')),
-	array('label'=>'Create Items', 'url'=>array('create')),
-	array('label'=>'View Items', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Items', 'url'=>array('admin')),*/
+	array('label'=>'Tambah Detil', 'url'=>array('detailitems/create', 'id'=>$model->id),
+		'linkOptions'=>array('id'=>'adddetail')),
 );
+
 ?>
 
 <h1>Item Penjualan</h1>

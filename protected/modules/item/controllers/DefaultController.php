@@ -95,7 +95,7 @@ class DefaultController extends Controller
                          $model->attributes=$_POST['Items'];
                          Yii::app()->session['Items']=$_POST['Items'];
                          $this->redirect(array('detailitems/create',
-                            'id'=>$model->id, 'regnum'=>$model->regnum));
+                            'id'=>$model->id));
                       }
                    }
                 }
@@ -381,7 +381,6 @@ class DefaultController extends Controller
 
              $details=Yii::app()->session['Detailitems'];
              $this->afterUpdateDetail($model, $details);
-
              $this->render('update',array(
                  'model'=>$model,
              ));
@@ -479,25 +478,16 @@ class DefaultController extends Controller
         {
             $idmaker=new idmaker();
             $model->id=$idmaker->getCurrentID2();
-            $model->idatetime=$idmaker->getDateTime();
-            $model->regnum=$idmaker->getRegNum($this->formid);
-            $lookup=new lookup();
-            $model->status=$lookup->reverseOrderStatus('Belum Diproses');
         }
         
         protected function afterPost(& $model)
         {
-            $idmaker=new idmaker();
-            $idmaker->saveRegNum($this->formid, $model->regnum);    
         }
         
         protected function beforePost(& $model)
         {
-            $idmaker=new idmaker();
-            
             $model->userlog=Yii::app()->user->id;
-            $model->datetimelog=$idmaker->getDateTime();
-            $model->regnum=$idmaker->getRegNum($this->formid);
+            $model->datetimelog=idmaker::getDateTime();
         }
         
         protected function beforeDelete(& $model)

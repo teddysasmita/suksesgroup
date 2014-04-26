@@ -5,32 +5,13 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('itemname')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->itemname), array('view', 'id'=>$data->id)); 
+	?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('code')); ?>:</b>
-	<?php echo CHtml::encode($data->code); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
-	<?php echo CHtml::encode(lookup::TypeToName($data->type)); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('brand')); ?>:</b>
-	<?php echo CHtml::encode($data->brand); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('objects')); ?>:</b>
-	<?php echo CHtml::encode($data->objects); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('model')); ?>:</b>
-	<?php echo CHtml::encode($data->model); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('remark')); ?>:</b>
+	<?php echo CHtml::encode(CFormatter::formatNText($data->remark)); ?>
 	<br />
 
 	<?php /*

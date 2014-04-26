@@ -55,6 +55,18 @@ class LookUpController extends Controller {
 		};	
 	}
 	
+	public function actionGetUnit($term)
+	{
+		if (!Yii::app()->user->isGuest) {
+			$data=Yii::app()->db->createCommand()->select('id as value, name as label')->from('units')
+			->where('name like :p_name', array(':p_name'=>'%'.$term.'%'))
+			->order('name')
+			->queryAll();
+			echo json_encode($data);
+		} else {
+			throw new CHttpException(404,'You have no authorization for this operation.');
+		};	
+	}
 	public function actionGetObjects($term)
 	{
 		if (!Yii::app()->user->isGuest) {

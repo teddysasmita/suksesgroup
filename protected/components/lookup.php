@@ -108,6 +108,11 @@ class lookup extends CComponent {
       return Yii::app()->authdb->createCommand($sql)->queryScalar();
    }
    
+   public static function UnitNameFromUnitID($id)
+   {
+      $sql="select name from units where id='$id'";
+      return Yii::app()->db->createCommand($sql)->queryScalar();
+   }
    public static function UserIDFromName($name)
    {
 		if(strlen($name)>0)

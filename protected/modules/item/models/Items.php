@@ -5,14 +5,8 @@
  *
  * The followings are the available columns in table 'items':
  * @property string $id
- * @property string $code
- * @property integer $type
- * @property string $name
- * @property string $brand
- * @property string $objects
- * @property string $model
- * @property string $attribute
- * @property string $picture
+ * @property string $itemname
+ * @property string $remark
  * @property string $userlog
  * @property string $datetimelog
  */
@@ -34,17 +28,14 @@ class Items extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, code, type, name, userlog, datetimelog', 'required'),
-			array('type', 'numerical', 'integerOnly'=>true),
+			array('id, itemname, userlog, datetimelog', 'required'),
 			array('id, userlog', 'length', 'max'=>21),
-			array('code', 'length', 'max'=>12),
-			array('name, attribute', 'length', 'max'=>255),
-			array('brand, objects, model', 'length', 'max'=>50),
+			array('itemname', 'length', 'max'=>255),
 			array('datetimelog', 'length', 'max'=>19),
-			array('picture', 'safe'),
+			array('remark', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, code, type, name, brand, objects, model, attribute, picture, userlog, datetimelog', 'safe', 'on'=>'search'),
+			array('id, itemname, remark, userlog, datetimelog', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,14 +57,8 @@ class Items extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'code' => 'Code',
-			'type' => 'Jenis',
-			'name' => 'Name',
-			'brand' => 'Brand',
-			'objects' => 'Objects',
-			'model' => 'Model',
-			'attribute' => 'Attribute',
-			'picture' => 'Picture',
+			'itemname' => 'Name',
+			'remark' => 'Catatan',
 			'userlog' => 'Userlog',
 			'datetimelog' => 'Datetimelog',
 		);
@@ -98,14 +83,8 @@ class Items extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('code',$this->code,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('brand',$this->brand,true);
-		$criteria->compare('objects',$this->objects,true);
-		$criteria->compare('model',$this->model,true);
-		$criteria->compare('attribute',$this->attribute,true);
-		$criteria->compare('picture',$this->picture,true);
+		$criteria->compare('itemname',$this->name,true);
+		$criteria->compare('remark',$this->remark,true);
 		$criteria->compare('userlog',$this->userlog,true);
 		$criteria->compare('datetimelog',$this->datetimelog,true);
 

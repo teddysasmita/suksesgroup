@@ -24,26 +24,15 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'code',
+		'itemname',
 		array(
-                   'name'=>'type',
-                   'label'=>'Jenis',
-                   'value'=>lookup::TypeToName($model['type']),
-                ),   
-		'name',
-		'brand',
-		'objects',
-		'model',
-		'attribute',
+		   'name'=>'remark',
+		   'type'=>'ntext',
+		),
 		array(
-                   'name'=>'picture',
-                   'label'=>'Foto',
-                   'type'=>'raw',
-                   //'value'=>  html_entity_decode(CHtml::image(Yii::app()->basePath.'/images/'.$model['picture'])),
-                   'value'=>  html_entity_decode(CHtml::image(YIi::app()->baseUrl.'/images/'.$model['picture'],'Not Available')),
-                ),
-		'userlog',
+			'name'=>'userlog',
+			'value'=>lookup::UserNameFromUserID($model->userlog),
+		),
 		'datetimelog',
 	),
 )); ?>

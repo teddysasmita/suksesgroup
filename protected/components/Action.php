@@ -12,7 +12,7 @@
  *
  * @author teddy
  */
-class Action extends CComponent {
+class Action {
    
    //put your code here
    
@@ -161,7 +161,13 @@ class Action extends CComponent {
       //return print_r($data);
       return Yii::app()->createUrl('detailpurchasesinvoices/view', array('iddetail'=>$data['iddetail']));
    }
-      
+   
+   public static function decodeUpdateDetailPurchasesInvoiceUrl($data)
+   {
+      //return print_r($data);
+      return Yii::app()->createUrl('detailpurchasesinvoices/update', array('iddetail'=>$data['iddetail']))  ;
+   }
+   
    public static function decodeDeleteDetailPurchasesOrderUrl($data)
    {
       //return print_r($data);
@@ -343,7 +349,6 @@ class Action extends CComponent {
    
    public static function decodeDeleteDetailItemUrl($data)
    {
-      //return print_r($data);
       return Yii::app()->createUrl('item/detailitems/delete', array('iddetail'=>$data['iddetail']));
    }
    
