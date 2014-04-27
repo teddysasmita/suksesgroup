@@ -47,7 +47,7 @@ class DefaultController extends Controller
 	{
              if(Yii::app()->authManager->checkAccess($this->formid.'-Append', 
                     Yii::app()->user->id))  {   
-                $this->state='c';
+                $this->state='create';
                 $this->trackActivity('c');    
                     
                 $model=new Items;
@@ -119,7 +119,7 @@ class DefaultController extends Controller
           if(Yii::app()->authManager->checkAccess($this->formid.'-Update', 
                  Yii::app()->user->id))  {
 
-             $this->state='u';
+             $this->state='update';
              $this->trackActivity('u');
 
              $model=$this->loadModel($id);
@@ -313,7 +313,11 @@ class DefaultController extends Controller
             if(Yii::app()->authManager->checkAccess($this->formid.'-Update', 
                Yii::app()->user->id)) {
                 $this->trackActivity('n');
-                $this->tracker->restoreDeleted('items', $idtrack);
+                $id = Yii::app()->tracker->createCommand()->select('id')->from('items')
+                	->where('idtrack = :p_idtrack', array(':p_idtrack'=>$idtrack))
+                	->queryScalar();
+                $this->tracker->restoreDeleted('detailitems', "id", $id );
+                $this->tracker->restoreDeleted('items', "idtrack", $idtrack);
                 
                 $dataProvider=new CActiveDataProvider('Items');
                 $this->render('index',array(
@@ -482,6 +486,11 @@ class DefaultController extends Controller
         
         protected function afterPost(& $model)
         {
+			if ($this->state == 'create') {
+				$acct = new Accounting(); 
+				if (! $acct->createChartEntry( $model->id, 'IBD' )) 
+					throw new CHttpException(505,'Cannot create database account: '. 'IBD');				
+			};
         }
         
         protected function beforePost(& $model)
@@ -492,12 +501,13 @@ class DefaultController extends Controller
         
         protected function beforeDelete(& $model)
         {
-            
+            $acct = new Accounting(); 
+			$acct->deleteChartEntry( $model->id );
         }
         
         protected function afterDelete()
         {
-               
+            
         }
         
         protected function afterEdit(& $model)
@@ -516,7 +526,7 @@ class DefaultController extends Controller
         
         protected function afterDeleteDetail(& $model, $details)
         {
-        	$this->sumDetail($model, $details);
+
         }
         
         protected function trackActivity($action)

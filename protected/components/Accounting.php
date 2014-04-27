@@ -36,7 +36,7 @@
 
 class Accounting {
 	
-	public $account_name = array(
+	public $afn = array(
 		"KT"=>"Kas Di Tangan",
 		"KB"=> "Kas Di Bank",
 		"IBD"=> "Persediaan Barang Dagang",
@@ -61,31 +61,35 @@ class Accounting {
 		"RBU"=> "Pendapatan dari Bunga",
 	);
 		
-	public static function createChartEntry($idadmin, $kind, $level = 1 )
+	public function createChartEntry($idadmin, $kind, $level = 1 )
 	{
-		$data['idref'] = $idadmin;
-		$data['kind'] = $kind;
-		$data['level'] = $level;
-		$data['id'] = idmaker::getCurrentID2();
-		$data['userlog'] = Yii::app()->user->id;
-		$data['datetimelog'] = idmaker::getDateTime();
-		
-		Yii::app()->db->createCommand()->insert('raccounts', $data);
+		if (array_key_exists($kind, $this->afn)) {
+			$data['idadminref'] = $idadmin;
+			$data['kind'] = $kind;
+			$data['level'] = $level;
+			$data['id'] = idmaker::getCurrentID2();
+			$data['userlog'] = Yii::app()->user->id;
+			$data['datetimelog'] = idmaker::getDateTime();
+
+			return Yii::app()->accounting->createCommand()->insert('raccounts', $data);
+		} else {
+			return FALSE;
+		};
 	}
 	
 	public static function getChartEntry($idadmin, $kind)
 	{
-		$result = Yii::app()->db->createCommand()
+		$result = Yii::app()->accounting->createCommand()
 			->select('id')->from('raccounts')
-			->where('idref = :p_idref and kind = :p_kind',
+			->where('idadminref = :p_idref and kind = :p_kind',
 				array(':p_kind'=>$kind, ':p_idref'=>$idref) )
 			->queryScalar();
 	}
 	
 	public static function deleteChartEntry($idadmin)
 	{
-		Yii::app()->db->createCommand()
-			->delete('raccounts', 'idadmin = :p_idadmin',
+		Yii::app()->accounting->createCommand()
+			->delete('raccounts', 'idadminref = :p_idadmin',
 				array('p_idadmin'=>$idadmin));
 	}
 }

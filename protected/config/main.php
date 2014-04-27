@@ -128,6 +128,11 @@ return array(
                'charset' => 'utf8',*/
 
     ),
+    
+    'accounting'=>array(
+		'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/sukses-accounting.db',
+		'class'=>'CDbConnection',
+    ),
 		// uncomment the following to use a MySQL database
 		/*
 		'db'=>array(
