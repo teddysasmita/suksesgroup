@@ -488,8 +488,13 @@ class DefaultController extends Controller
         {
 			if ($this->state == 'create') {
 				$acct = new Accounting(); 
-				if (! $acct->createChartEntry( $model->id, 'IBD' )) 
-					throw new CHttpException(505,'Cannot create database account: '. 'IBD');				
+				if (! $acct->createChartEntry( $model->id, 'AMI' )) 
+					throw new CHttpException(505,'Cannot create database account: '. 'AMI');
+				if (! $acct->createChartEntry( $model->id, 'RV' ))
+					throw new CHttpException(505,'Cannot create database account: '. 'RV');
+				if (! $acct->createChartEntry( $model->id, 'ECG' ))
+					throw new CHttpException(505,'Cannot create database account: '. 'ECG');
+				
 			};
         }
         

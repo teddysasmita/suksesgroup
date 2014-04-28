@@ -76,7 +76,7 @@ class DefaultController extends Controller
             if(Yii::app()->authManager->checkAccess($this->formid.'-Append', 
                     Yii::app()->user->id))  {            
 
-                $this->state='c';
+                $this->state='create';
                 $this->trackActivity('c');
                 
                 $model=new Customers;
@@ -113,7 +113,7 @@ class DefaultController extends Controller
             if(Yii::app()->authManager->checkAccess($this->formid.'-Update', 
                     Yii::app()->user->id))  {
                 
-                $this->state='u';
+                $this->state='update';
                 $this->trackActivity('u');
                 
                 $model=$this->loadModel($id);
@@ -302,7 +302,17 @@ class DefaultController extends Controller
         
         protected function afterPost(& $model)
         {
-            
+        	if ($this->state == 'create') {
+        		$acct = new Accounting();
+        		if (! $acct->createChartEntry( $model->id, 'APT' ))
+        			throw new CHttpException(505,'Cannot create database account: '. 'APT');
+        		if (! $acct->createChartEntry( $model->id, 'LHU' ))
+        			throw new CHttpException(505,'Cannot create database account: '. 'LHU');
+        		if (! $acct->createChartEntry( $model->id, 'ERA' ))
+        			throw new CHttpException(505,'Cannot create database account: '. 'ERA');
+        		if (! $acct->createChartEntry( $model->id, 'ED' ))
+        			throw new CHttpException(505,'Cannot create database account: '. 'ED');
+        	};
         }
         
         protected function beforePost(& $model)
@@ -315,7 +325,8 @@ class DefaultController extends Controller
         
         protected function beforeDelete(& $model)
         {
-            
+        	$acct = new Accounting();
+        	$acct->deleteChartEntry( $model->id );
         }
         
         protected function afterDelete()

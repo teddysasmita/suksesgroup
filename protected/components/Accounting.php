@@ -3,15 +3,15 @@
 /*
  * The kind of an account is defined as follows:
  * Asset = Aset 
- * Cash In Hand = Kas di tangan = KT
- * Cash In Bank = Kas Bank = KB
- * Merchandise Inventory = Persediaan Barang Dagang = PBD
+ * Cash In Hand = Kas di tangan = AKT
+ * Cash In Bank = Kas Bank = AKB
+ * Merchandise Inventory = Persediaan Barang Dagang = AMI
  * Equipment = Peralatan = APR
- * Land = Tanah = AT
+ * Land = Tanah = AL
  * Building = Bangunan = AB
  * Supplies = Persediaan = AS
- * Account Depreciation Building = Depresiasi Bangunan = DAB
- * Account Depreciation Equipment = Depresiasi Peralatan = DAPR
+ * Accumulated Depreciation Building = Akumulasi Depresiasi Bangunan = DAB
+ * Accumulated Depreciation Equipment = Akumulasi Depresiasi Peralatan = DAPR
  * Prepaid Insurance = Asuransi = ASR
  * Receivable = Piutang = APT
  * ------------------
@@ -19,29 +19,32 @@
  * AccountPayable = Hutang Usaha = LHU 
  * Wages Payable = Hutang Upah = LHH
  * Interest Payable = Bunga Hutang = LHB
- * Unearned Revenues = Uang Muka (Titipsan) = LUM
+ * Unearned Revenues = Uang Muka (Titipan) = LUR
  * Mortgage Loan Payable = Hipotek = LHT
  * ------------------
  * Capital = Modal = MD
  * ------------------
- * Revenue = Pendapatan = PD
+ * Revenue = Pendapatan = RV
+ * Purchase Retur and Allowance = Retur dan Potongan Pembelian = RRA
+ * Interest Revenues = Pendapatan dari Bunga = RI
+ * Purchase Discount = Pendapatan dari Diskon/Potongan = RD 
  * ------------------
- * Expense = Pengeluaran (Biaya) = BY
- * Depreciation Expense = Pengeluaran Depresiasi = PDR
+ * Expense = Pengeluaran (Biaya) = EB
+ * Sales Discount = Biaya untuk Diskon/Potongan = ED
+ * Depreciation Expense = Pengeluaran Depresiasi = EDR
+ * Cost of Goods = Harga Pokok Barang = ECG
+ * Sales Retur and Allowance = Retur dan Potongan Penjualan = ERA
  * ------------------
- * Interest Revenues = Pendapatan dari Bunga = PBU
- * ------------------
- * Cost = Biaya =
 */
 
 class Accounting {
 	
 	public $afn = array(
-		"KT"=>"Kas Di Tangan",
-		"KB"=> "Kas Di Bank",
-		"IBD"=> "Persediaan Barang Dagang",
+		"AKT"=>"Kas Di Tangan",
+		"AKB"=> "Kas Di Bank",
+		"AMI"=> "Persediaan Barang Dagang",
 		"APR"=> "Peralatan",
-		"AT"=> "Tanah",
+		"AL"=> "Tanah",
 		"AB"=> "Bangunan",
 		"AS"=> "Persediaan",
 		"DAB"=> "Depresiasi Bangunan",
@@ -56,9 +59,14 @@ class Accounting {
 		"LHT"=> "Hipotek",
 		"MD"=> "Modal",
 		"RV"=> "Pendapatan Usaha",
+		"RRA"=> "Retur dan Potongan Pembelian",
+		"RD"=> "Pendapatan dari Potongan",
+		"RI"=> "Pendapatan dari Bunga",
+		"ED"=> "Potongan",
 		"EB"=> "Pengeluaran",
+		"ERA"=> "Retur dan Potongan Penjualan",
 		"EDR"=> "Pengeluaran Depresiasi",
-		"RBU"=> "Pendapatan dari Bunga",
+		"ECG"=> "Harga Pokok Barang",
 	);
 		
 	public function createChartEntry($idadmin, $kind, $level = 1 )
